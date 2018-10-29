@@ -1,26 +1,19 @@
 //declaring variables
 
 //store which points are empty/full
+// /window.tetris = window.tetris || {
+//   blubb: function() {}
+// };
 
-var wellStatus =
-  [
-    [0, 0, 0],
-    [0, 0, 0],
-    [0, 0, 0],
-    [0, 0, 0],
-    [0, 0, 0]
-  ];
-
-var rowEmpty = [0, 0, 0];
-
-var rowFull = wellStatus[block.posY] == [1, 1, 1];
-
-var startingPosition = "41";
+// window.tetris.blubb = funct
 
 var block = {
   posY: 1,
   posX: 4
 };
+
+
+
 
 var newCell = null;
 var t = null;
@@ -32,35 +25,49 @@ var t = null;
 
 
 //FUNKTIONIERT!
-
-function draw() {
-  for (y=wellStatus.length; y >= 0; y--) {
-
-    for (x in wellStatus[y]) {
-      var newCell = document.createElement("div");
-      newCell.id = y.toString()+x.toString();
-      newCell.className="free";
-      var t = document.createTextNode(newCell.id);
-      newCell.appendChild(t);
-      
-      document.getElementById("well").appendChild(newCell);
-    }
-  }
-}
-
-function createBlock() {
-  alert("41");
-  document.getElementById("41").className="block";
-};
-
 var well = {
+  wellStatus:
+  [
+    [0, 0, 0],
+    [0, 0, 0],
+    [0, 0, 0],
+    [0, 0, 0],
+    [0, 0, 0]
+  ],
+
+  block : {
+    posY: 1,
+    posX: 4
+  },
+
+  rowEmpty : [0, 0, 0],
+
+  // rowFull : this.wellStatus.block.posY == [1, 1, 1],
+
+  startingPosition : "41",
+
+  draw : function() {
+    for (y=this.wellStatus.length; y >= 0; y--) {
+      var newCell = null;
+      var t = null;
+
+      for (x in this.wellStatus[y]) {
+        var newCell = document.createElement("div");
+        newCell.id = y.toString()+x.toString();
+        newCell.className="free";
+        var t = document.createTextNode(newCell.id);
+        newCell.appendChild(t);
+        
+        document.getElementById("well").appendChild(newCell);
+      }
+    }
+  },
 
 //creating block object
-//TODO //update function
   createBlock: function() {
     document.getElementById("41").className="block";
     // this.moveBlock();
-  },
+  }
 };
 
 //       //moveDown
@@ -119,4 +126,5 @@ var well = {
 //     }
 //     this.createBlock();
 //   }
+// };
 // };
