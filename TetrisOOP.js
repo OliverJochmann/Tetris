@@ -16,9 +16,9 @@ var well = {
   wellStatus:
   [
     [false, false, false],
+    [false, true, false],
     [false, false, false],
-    [false, false, false],
-    [false, false, false],
+    [false, true, false],
     [false, false, false]
   ],
 
@@ -31,17 +31,22 @@ var well = {
 
   rowEmpty : [0, 0, 0],
 
+  allIds : [],
+
   // rowFull : this.wellStatus.block.posY == [1, 1, 1],
 
   createWell : function() {
     for (y=this.wellStatus.length; y >= 0; y--) {
       var newCell = null;
       var t = null;
+      // console.log(this.wellStatus[y]);
 
       for (x in this.wellStatus[y]) {
         var newCell = document.createElement("div");
         newCell.id = y.toString()+x.toString();
+
         newCell.className="free";
+        
         var t = document.createTextNode(newCell.id);
         newCell.appendChild(t);
         
@@ -50,30 +55,54 @@ var well = {
     }
   },
 
-  updateWell : function(posY, posX) {
-    this.wellStatus[posY][posX] = !this.wellStatus[posY][posX];
-  },
-
-  createBlock: function() {
-    var newBlock = new this.Block(4, 1);
-    updateWell = 
-    this.drawWell()
-    // this.moveBlock();
-  },
-
   drawWell : function() {
     for (y=this.wellStatus.length; y >= 0; y--) {
       
       for (x in this.wellStatus[y]) {
-        if (this.wellStatus[y][x] == 1) {
-          this.wellStatus[y][x].className="block";
+
+        if (this.wellStatus[y][x] == true) {
+          document.getElementById(y.toString()+x.toString()).className="block";
         }
         else {
-          this.wellStatus[y][x].className="block";
-        }
+          document.getElementById(y.toString()+x.toString()).className="free";
+        };
       }
     }
   },
+
+    // for (let id in this.allIds) {
+    //   if (document.getElementById(id) == true) {
+    //     document.getElementById(id).className="block";
+    //   }
+    //   else if (document.getElementById(id) == false) {
+    //     document.getElementById(id).className="free";
+    //   }
+    // };
+      
+      
+  //     for (x in this.wellStatus[y]) {
+  //       if (this.wellStatus[y].x) {
+  //         this.wellStatus[y].x.className="block";
+  //       }
+  //       else {
+  //         this.wellStatus[y].x.className="free";
+  //       }
+  //     }
+  //   }
+  // },
+
+  updateWell : function(posY, posX) {
+    this.wellStatus[posY][posX] = !this.wellStatus[posY][posX];
+    this.drawWell();
+  },
+
+  createBlock: function() {
+    var newBlock = new this.Block(4, 1);
+    this.updateWell(newBlock);
+    // this.moveBlock();
+  },
+
+  
 
 //creating block object
 };
