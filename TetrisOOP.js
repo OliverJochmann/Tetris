@@ -16,9 +16,9 @@ var well = {
   wellStatus:
   [
     [false, false, false],
-    [false, true, false],
     [false, false, false],
-    [false, true, false],
+    [false, false, false],
+    [false, false, false],
     [false, false, false]
   ],
 
@@ -27,11 +27,9 @@ var well = {
     this.posX = posX
   },
 
-  newBlock : null,
+  newBlock : (0, 0),
 
   rowEmpty : [0, 0, 0],
-
-  allIds : [],
 
   // rowFull : this.wellStatus.block.posY == [1, 1, 1],
 
@@ -39,14 +37,13 @@ var well = {
     for (y=this.wellStatus.length; y >= 0; y--) {
       var newCell = null;
       var t = null;
-      // console.log(this.wellStatus[y]);
 
       for (x in this.wellStatus[y]) {
         var newCell = document.createElement("div");
         newCell.id = y.toString()+x.toString();
 
         newCell.className="free";
-        
+
         var t = document.createTextNode(newCell.id);
         newCell.appendChild(t);
         
@@ -70,70 +67,52 @@ var well = {
     }
   },
 
-    // for (let id in this.allIds) {
-    //   if (document.getElementById(id) == true) {
-    //     document.getElementById(id).className="block";
-    //   }
-    //   else if (document.getElementById(id) == false) {
-    //     document.getElementById(id).className="free";
-    //   }
-    // };
-      
-      
-  //     for (x in this.wellStatus[y]) {
-  //       if (this.wellStatus[y].x) {
-  //         this.wellStatus[y].x.className="block";
-  //       }
-  //       else {
-  //         this.wellStatus[y].x.className="free";
-  //       }
-  //     }
-  //   }
-  // },
-
-  updateWell : function(posY, posX) {
-    this.wellStatus[posY][posX] = !this.wellStatus[posY][posX];
+  updateWell : function(Block) {
+    this.wellStatus[Block.posY][Block.posX] = !this.wellStatus[Block.posY][Block.posX];
     this.drawWell();
   },
 
   createBlock: function() {
-    var newBlock = new this.Block(4, 1);
-    this.updateWell(newBlock);
-    // this.moveBlock();
+    this.newBlock = new this.Block(4, 1);
+    this.updateWell(this.newBlock);
+    this.moveBlock(this.newBlock);
   },
 
-  
 
-//creating block object
-};
+      //moveDown
+  moveBlock: function (Block) {
+    // var freeBelow = this.wellStatus[this.newBlock.posY+1][this.newBlock.posX] == false;
+    // var freeLeft = this.wellStatus[this.newBlock.posY][this.newBlock.posX-1] == false;
+    // var freeRight = this.wellStatus[this.newBlock.posY][this.newBlock.posX+1] == false;
 
-//       //moveDown
-//   moveBlock: function () {
-//     var freeBelow = wellStatus[block.posY+1][block.posX] == 0;
-//     var freeLeft = wellStatus[block.posY][block.posX-1] == 0;
-//     var freeRight = wellStatus[block.posY][block.posX+1] == 0;
+    setInterval(function(){
+      Block.posY += 1;
+    }, 1000);
+      this.updateWell(this.newBlock);
+    
 
-//     setInterval(function(){
-//       block.posY += 1;}, 1000);
+    // if(!freeBelow) {clearInterval(),
+    //   this.blockArrived();
+    // };
+  }
 
-//     if(!freeBelow) {clearInterval(),
-//       this.blockArrived();
-//     };
+    // var lastKey = null;
+    // document.addEventListener('keypress', (event) => {
+    // lastKey = event.key;
+    // });
 
-//     var lastKey = null;
-//     document.addEventListener('keypress', (event) => {
-//     lastKey = event.key;
-//     });
-
-//     if (lastKey == 'a' && freeLeft) {
-//       block.posX -= 1;
-//       lastKey = null;
-//     }
-//     if (lastKey == 'd' && freeRight) {
-//       block.posX += 1;
-//       lastKey = null;
-//     }
-//   },
+    // if (lastKey == 'a' && freeLeft) {
+    //   this.updateWell(this.newBlock);
+    //   this.newBlock.posX -= 1;
+    //   this.updateWell(this.newBlock);
+    //   lastKey = null;
+    // }
+    // if (lastKey == 'a' && freeRight) {
+    //   this.updateWell(this.newBlock);
+    //   this.newBlock.posX += 1;
+    //   this.updateWell(this.newBlock);
+    //   lastKey = null;
+    // }
 
 //   blockArrived: function () {
 //     wellStatus[block.posY][block.posX] = 1;
@@ -164,4 +143,4 @@ var well = {
 //     this.createBlock();
 //   }
 // };
-// };
+};
