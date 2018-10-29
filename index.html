@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Tetris OOP</title>
+
+  <style>
+    #well {
+      height: 510px;
+      width: 304px;
+      background-color:darkslategrey;
+      display:grid;
+      grid-template-columns: repeat(3, 1fr);
+      grid-template-rows: repeat(5, 1fr);
+      grid-gap: 2px
+    }
+    
+    .free {
+      background-color: aqua;
+      color: darkblue
+    }
+
+    .block {
+      background-color: darkred;
+      color: lightgray
+    }
+
+  </style>
+</head>
+<body>
+  <button onclick="draw()">Draw Well</button>
+
+  <button onclick="createBlock()">Start Game</button>
+
+  <div id="well" class="">
+
+  </div>
+
+  <script src="TetrisOOP.js"></script>
+</body>
+</html>

@@ -1,0 +1,7 @@
+OJ Tetris
+
+//ten width and twenty height positions
+// CSS Grid Layout?
+
+//logic working in fall steps, checks movement colissions every step
+
