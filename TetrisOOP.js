@@ -7,46 +7,33 @@
 
 // window.tetris.blubb = funct
 
-var block = {
-  posY: 1,
-  posX: 4
-};
-
-
-
-
-var newCell = null;
-var t = null;
-
-//startingPosition = ;
-
 //transponieren
 //function transpose(wellStatus) {}
 
 
-//FUNKTIONIERT!
+
 var well = {
   wellStatus:
   [
-    [0, 0, 0],
-    [0, 0, 0],
-    [0, 0, 0],
-    [0, 0, 0],
-    [0, 0, 0]
+    [false, false, false],
+    [false, false, false],
+    [false, false, false],
+    [false, false, false],
+    [false, false, false]
   ],
 
-  block : {
-    posY: 1,
-    posX: 4
+  Block : function(posY, posX) {
+    this.posY = posY,
+    this.posX = posX
   },
+
+  newBlock : null,
 
   rowEmpty : [0, 0, 0],
 
   // rowFull : this.wellStatus.block.posY == [1, 1, 1],
 
-  startingPosition : "41",
-
-  draw : function() {
+  createWell : function() {
     for (y=this.wellStatus.length; y >= 0; y--) {
       var newCell = null;
       var t = null;
@@ -63,11 +50,32 @@ var well = {
     }
   },
 
-//creating block object
+  updateWell : function(posY, posX) {
+    this.wellStatus[posY][posX] = !this.wellStatus[posY][posX];
+  },
+
   createBlock: function() {
-    document.getElementById("41").className="block";
+    var newBlock = new this.Block(4, 1);
+    updateWell = 
+    this.drawWell()
     // this.moveBlock();
-  }
+  },
+
+  drawWell : function() {
+    for (y=this.wellStatus.length; y >= 0; y--) {
+      
+      for (x in this.wellStatus[y]) {
+        if (this.wellStatus[y][x] == 1) {
+          this.wellStatus[y][x].className="block";
+        }
+        else {
+          this.wellStatus[y][x].className="block";
+        }
+      }
+    }
+  },
+
+//creating block object
 };
 
 //       //moveDown
