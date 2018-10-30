@@ -29,7 +29,7 @@ var well = {
 
   newBlock : (0, 0),
 
-  rowEmpty : [0, 0, 0],
+  rowEmpty : [false, false, false],
 
   // rowFull : this.wellStatus.block.posY == [1, 1, 1],
 
@@ -52,12 +52,12 @@ var well = {
     }
   },
 
-  drawWell : function() {
-    for (y=this.wellStatus.length; y >= 0; y--) {
+  drawWell : function(wStatus) {
+    for (y=wStatus.length; y >= 0; y--) {
       
-      for (x in this.wellStatus[y]) {
+      for (x in wStatus[y]) {
 
-        if (this.wellStatus[y][x] == true) {
+        if (wStatus[y][x] == true) {
           document.getElementById(y.toString()+x.toString()).className="block";
         }
         else {
@@ -69,26 +69,28 @@ var well = {
 
   updateWell : function(Block) {
     this.wellStatus[Block.posY][Block.posX] = !this.wellStatus[Block.posY][Block.posX];
-    this.drawWell();
+    this.drawWell(this.wellStatus);
   },
 
   createBlock: function() {
     this.newBlock = new this.Block(4, 1);
     this.updateWell(this.newBlock);
+    // console.log(this.wellStatus);
     this.moveBlock(this.newBlock);
   },
 
 
       //moveDown
   moveBlock: function (Block) {
-    // var freeBelow = this.wellStatus[this.newBlock.posY+1][this.newBlock.posX] == false;
-    // var freeLeft = this.wellStatus[this.newBlock.posY][this.newBlock.posX-1] == false;
-    // var freeRight = this.wellStatus[this.newBlock.posY][this.newBlock.posX+1] == false;
+    // var freeBelow = this.wellStatus[Block.posY+1][Block.posX] == false;
+    // var freeLeft = this.wellStatus[Block.posY][Block.posX-1] == false;
+    // var freeRight = this.wellStatus[Block.posY][Block.posX+1] == false;
 
     setInterval(function(){
-      Block.posY += 1;
+      well.updateWell(Block);
+      Block.posY -= 1;
+      well.updateWell(Block);
     }, 1000);
-      this.updateWell(this.newBlock);
     
 
     // if(!freeBelow) {clearInterval(),
