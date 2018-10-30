@@ -27,6 +27,8 @@ var well = {
     this.posX = posX
   },
 
+  blockedBelow : false,
+
   newBlock : (0, 0),
 
   rowEmpty : [false, false, false],
@@ -75,28 +77,38 @@ var well = {
   createBlock: function() {
     this.newBlock = new this.Block(4, 1);
     this.updateWell(this.newBlock);
-    // console.log(this.wellStatus);
     this.moveBlock(this.newBlock);
   },
 
 
       //moveDown
   moveBlock: function (Block) {
-    // var freeBelow = this.wellStatus[Block.posY+1][Block.posX] == false;
+    // let timerId = setInterval(moveDown, 1000);
+    var blockedBelow = Block.posY == 0 ||
+      this.wellStatus[Block.posY-1][Block.posX] == true;
     // var freeLeft = this.wellStatus[Block.posY][Block.posX-1] == false;
     // var freeRight = this.wellStatus[Block.posY][Block.posX+1] == false;
 
-    setInterval(function(){
+
+    setTimeout(function(){
+      if(blockedBelow) {
+        alert("Block arrived!")
+        this.blockArrived();
+      } else {
+        well.updateWell(Block);
+        Block.posY -= 1;
+        well.updateWell(Block);
+        well.moveBlock(Block);
+      }
+      }, 1000);
+
+    function moveDown() {
       well.updateWell(Block);
       Block.posY -= 1;
       well.updateWell(Block);
-    }, 1000);
+    };
     
-
-    // if(!freeBelow) {clearInterval(),
-    //   this.blockArrived();
-    // };
-  }
+  },
 
     // var lastKey = null;
     // document.addEventListener('keypress', (event) => {
