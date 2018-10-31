@@ -10,6 +10,10 @@
 //transponieren
 //function transpose(wellStatus) {}
 
+var lastKey = null;
+document.addEventListener('keypress', (event) => {
+  lastKey = event.key;
+});
 
 
 var well = {
@@ -68,7 +72,7 @@ var well = {
         if (wStatus[y][x] == true) {
           document.getElementById(y.toString()+x.toString()).className="block";
         }
-        else {
+        else if (wStatus[y][x] == false) {
           document.getElementById(y.toString()+x.toString()).className="free";
         };
       }
@@ -96,11 +100,6 @@ var well = {
     var blockedRight = Block.posX == well.rightEdge ||
       this.wellStatus[Block.posY][Block.posX+1] == true;
 
-    var lastKey = null;
-    document.addEventListener('keypress', (event) => {
-    lastKey = event.key;
-    });
-
     if (lastKey == 'a' && !blockedLeft) {
       well.updateWell(Block);
       Block.posX -= 1;
@@ -116,27 +115,26 @@ var well = {
     
     setTimeout(function(){
     if(blockedBelow) {
-      alert("Block arrived!")
-      this.blockArrived();
+      well.blockArrived();
     } else {
       well.updateWell(Block);
       Block.posY -= 1;
       well.updateWell(Block);
       well.moveBlock(Block);
     }
-    }, 1000);
+    }, 600);
 
-  }
+  },
   
-//   blockArrived: function () {
-//     wellStatus[block.posY][block.posX] = 1;
-//     if (rowFull) {
-//       this.removeRow(block.posY);
-//     }
-//     else {
-//       this.createBlock();
-//     }
-//   },
+  blockArrived: function () {
+    // wellStatus[block.posY][block.posX] = 1;
+    // if (rowFull) {
+    //   this.removeRow(block.posY);
+    // }
+    // else {
+      this.createBlock();
+    // }
+  },
 
 //   removeRow: function (rowNo) {
 //     wellStatus[rowNo] = [0, 0, 0];
