@@ -43,7 +43,7 @@ var well = {
 
   rowEmpty : [false, false, false],
 
-  // rowFull : this.wellStatus.block.posY == [1, 1, 1],
+  rowFull : [true, true, true],
 
   createWell : function() {
     for (y=this.wellStatus.length; y >= 0; y--) {
@@ -90,8 +90,8 @@ var well = {
     this.moveBlock(this.newBlock);
   },
 
-
-      //moveDown
+//TODO
+//separate down and L/R movement
   moveBlock: function (Block) {
     var blockedBelow = Block.posY == 0 ||
       this.wellStatus[Block.posY-1][Block.posX] == true;
@@ -115,7 +115,7 @@ var well = {
     
     setTimeout(function(){
     if(blockedBelow) {
-      well.blockArrived();
+      well.blockArrived(Block.posY);
     } else {
       well.updateWell(Block);
       Block.posY -= 1;
@@ -126,20 +126,20 @@ var well = {
 
   },
   
-  blockArrived: function () {
-    // wellStatus[block.posY][block.posX] = 1;
-    // if (rowFull) {
-    //   this.removeRow(block.posY);
-    // }
-    // else {
-      this.createBlock();
-    // }
+  blockArrived: function (rowNo) {
+    if (well.wellStatus[rowNo] == this.rowFull) {
+      well.removeRow(rowNo);
+    }
+    else {
+      well.createBlock();
+    }
   },
 
-//   removeRow: function (rowNo) {
-//     wellStatus[rowNo] = [0, 0, 0];
-//     this.gravity(rowNo);
-//   },
+  removeRow: function (rowNo) {
+    well.wellStatus[rowNo] = well.rowEmpty;
+    well.createBlock();
+    // this.gravity(rowNo);
+  },
 
 // // TODO method which awards points & combo
 //   awardPoints : function() {
