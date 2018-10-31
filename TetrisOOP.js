@@ -43,7 +43,7 @@ var well = {
 
   rowEmpty : [false, false, false],
 
-  rowFull : [true, true, true],
+  rowFull : false,
 
   createWell : function() {
     for (y=this.wellStatus.length; y >= 0; y--) {
@@ -99,6 +99,7 @@ var well = {
       this.wellStatus[Block.posY][Block.posX-1] == true;
     var blockedRight = Block.posX == well.rightEdge ||
       this.wellStatus[Block.posY][Block.posX+1] == true;
+    var rowFull = [true, true, true],
 
     if (lastKey == 'a' && !blockedLeft) {
       well.updateWell(Block);
@@ -126,13 +127,14 @@ var well = {
 
   },
   
-  blockArrived: function (rowNo) {
-    if (well.wellStatus[rowNo] == this.rowFull) {
-      well.removeRow(rowNo);
-    }
-    else {
-      well.createBlock();
-    }
+  blockArrived: function () {
+    for (y = 0, y <= well.wellStatus.length, y++) {
+      if (well.wellStatus[y] == rowFull) {
+        well.removeRow(y);
+      }
+    };
+    well.createBlock();
+      }
   },
 
   removeRow: function (rowNo) {
